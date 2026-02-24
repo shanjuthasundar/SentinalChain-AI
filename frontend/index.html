@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SentinelChain AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/styles.css" />
+</head>
+<body>
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+
+  <main class="layout">
+    <section class="hero card reveal">
+      <div>
+        <p class="eyebrow">Enterprise Fraud Intelligence</p>
+        <h1>SentinelChain AI</h1>
+        <p class="subtitle">
+          AI-Based Fraud Detection in Multi-Tier Supply Chains with explainable scoring,
+          graph-level intelligence, and premium analyst workflows.
+        </p>
+      </div>
+      <div class="hero-metrics">
+        <div>
+          <span id="suppliersCount">0</span>
+          <label>Suppliers tracked</label>
+        </div>
+        <div>
+          <span id="maxTier">0</span>
+          <label>Max tier depth</label>
+        </div>
+        <div>
+          <span id="avgRisk">0.00</span>
+          <label>Average base risk</label>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid">
+      <article class="card reveal">
+        <h2>Real-Time Evaluation</h2>
+        <form id="fraudForm" class="form-grid">
+          <input name="transaction_id" placeholder="Transaction ID" value="TXN-22044" required />
+          <input name="supplier_id" placeholder="Supplier ID" value="SUP-108" required />
+          <input name="buyer_id" placeholder="Buyer ID" value="BUY-208" required />
+          <input type="number" step="0.01" name="invoice_amount" placeholder="Invoice Amount" value="98000" required />
+          <input type="number" name="invoice_count_last_30d" placeholder="Invoices last 30d" value="18" required />
+          <input type="number" step="0.01" name="shipment_distance_km" placeholder="Distance (km)" value="870" required />
+          <input type="number" step="0.01" name="shipment_delay_hours" placeholder="Delay (hours)" value="28" required />
+          <input type="number" name="payment_term_days" placeholder="Payment term days" value="15" required />
+          <input type="number" step="0.01" name="contract_value" placeholder="Contract value" value="140000" required />
+          <input type="number" min="0" max="1" step="0.01" name="country_risk_index" placeholder="Country risk index" value="0.62" required />
+          <input type="number" min="1" max="6" name="tier_level" placeholder="Tier level" value="3" required />
+
+          <div class="toggles">
+            <label><input type="checkbox" name="sanctions_hit" /> Sanctions hit</label>
+            <label><input type="checkbox" name="beneficial_owner_mismatch" checked /> Owner mismatch</label>
+            <label><input type="checkbox" name="split_invoice_pattern" checked /> Split invoice signal</label>
+          </div>
+
+          <button type="submit" class="btn-primary">Run Fraud Detection</button>
+        </form>
+      </article>
+
+      <article class="card reveal">
+        <h2>Decision Intelligence</h2>
+        <div id="riskDisplay" class="risk-shell low">
+          <p class="risk-label">Current Risk Band</p>
+          <p id="riskBand" class="risk-band">LOW</p>
+          <p id="riskScore" class="risk-score">0.0000</p>
+        </div>
+        <div class="breakdown">
+          <div><label>Anomaly</label><span id="anomalyScore">0.0000</span></div>
+          <div><label>Rules</label><span id="ruleScore">0.0000</span></div>
+          <div><label>Network</label><span id="networkScore">0.0000</span></div>
+        </div>
+        <div>
+          <h3>Reason Codes</h3>
+          <ul id="reasonCodes" class="reason-list"></ul>
+        </div>
+        <p id="recommendation" class="recommendation">
+          Run an evaluation to view recommendation.
+        </p>
+      </article>
+    </section>
+
+    <section class="card reveal">
+      <div class="section-header">
+        <h2>Simulation Feed</h2>
+        <button id="refreshSimulation" class="btn-secondary">Refresh</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Transaction</th>
+              <th>Risk Score</th>
+              <th>Band</th>
+              <th>Top Signal</th>
+            </tr>
+          </thead>
+          <tbody id="simulationTable"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script src="/assets/app.js"></script>
+</body>
+</html>

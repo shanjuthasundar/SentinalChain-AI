@@ -1,0 +1,118 @@
+{
+  "suppliers": {
+    "SUP-101": {
+      "name": "Aster Metals",
+      "tier": 1,
+      "base_risk": 0.31,
+      "upstream": ["SUP-201", "SUP-202"]
+    },
+    "SUP-102": {
+      "name": "Nordic Components",
+      "tier": 1,
+      "base_risk": 0.42,
+      "upstream": ["SUP-203"]
+    },
+    "SUP-103": {
+      "name": "BlueRidge Plastics",
+      "tier": 2,
+      "base_risk": 0.54,
+      "upstream": ["SUP-302", "SUP-303"]
+    },
+    "SUP-108": {
+      "name": "Harbor Quantum Freight",
+      "tier": 3,
+      "base_risk": 0.77,
+      "upstream": ["SUP-402", "SUP-403", "SUP-404"]
+    },
+    "SUP-201": {
+      "name": "Delta Smelting",
+      "tier": 2,
+      "base_risk": 0.37,
+      "upstream": ["SUP-301"]
+    },
+    "SUP-202": {
+      "name": "Atlas Logistics",
+      "tier": 2,
+      "base_risk": 0.48,
+      "upstream": ["SUP-304", "SUP-305"]
+    },
+    "SUP-203": {
+      "name": "Kite Alloy Works",
+      "tier": 2,
+      "base_risk": 0.35,
+      "upstream": ["SUP-306"]
+    },
+    "SUP-301": {
+      "name": "Lumen Mines",
+      "tier": 3,
+      "base_risk": 0.52,
+      "upstream": ["SUP-401"]
+    },
+    "SUP-302": {
+      "name": "Silver Crown Ports",
+      "tier": 3,
+      "base_risk": 0.62,
+      "upstream": ["SUP-405"]
+    },
+    "SUP-303": {
+      "name": "Indigo Resin",
+      "tier": 3,
+      "base_risk": 0.43,
+      "upstream": []
+    },
+    "SUP-304": {
+      "name": "Orion Brokerage",
+      "tier": 3,
+      "base_risk": 0.58,
+      "upstream": ["SUP-406"]
+    },
+    "SUP-305": {
+      "name": "Carbix Fuel",
+      "tier": 3,
+      "base_risk": 0.67,
+      "upstream": []
+    },
+    "SUP-306": {
+      "name": "Peak Forge",
+      "tier": 3,
+      "base_risk": 0.41,
+      "upstream": []
+    },
+    "SUP-401": {
+      "name": "Vertex Raw",
+      "tier": 4,
+      "base_risk": 0.64,
+      "upstream": []
+    },
+    "SUP-402": {
+      "name": "Drift Marine",
+      "tier": 4,
+      "base_risk": 0.81,
+      "upstream": []
+    },
+    "SUP-403": {
+      "name": "Amber Holdings",
+      "tier": 4,
+      "base_risk": 0.74,
+      "upstream": []
+    },
+    "SUP-404": {
+      "name": "Volt Commodities",
+      "tier": 4,
+      "base_risk": 0.79,
+      "upstream": []
+    },
+    "SUP-405": {
+      "name": "Nexa Containers",
+      "tier": 4,
+      "base_risk": 0.46,
+      "upstream": []
+    },
+    "SUP-406": {
+      "name": "Crest Transit",
+      "tier": 4,
+      "base_risk": 0.53,
+      "upstream": []
+    }
+  }
+}

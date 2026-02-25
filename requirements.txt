@@ -1,5 +1,4 @@
 fastapi
 uvicorn[standard]
-scikit-learn
 numpy
 pydantic

@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 
-from app.models.schemas import FraudEvaluationRequest, FraudEvaluationResponse
-from app.services.fraud_engine import FraudEngine
+from ..models.schemas import FraudEvaluationRequest, FraudEvaluationResponse
+from ..services.fraud_engine import FraudEngine
 
 
 router = APIRouter()

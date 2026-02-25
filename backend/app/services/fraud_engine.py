@@ -4,18 +4,16 @@ from random import choice, randint, uniform
 from typing import Dict, List
 
 import numpy as np
-from sklearn.ensemble import IsolationForest
 
-from app.models.schemas import FraudEvaluationRequest
+from ..models.schemas import FraudEvaluationRequest
 
 
 class FraudEngine:
     def __init__(self) -> None:
-        self._model = IsolationForest(
-            n_estimators=120,
-            contamination=0.14,
-            random_state=42,
-        )
+        self._means = np.zeros(6)
+        self._stds = np.ones(6)
+        self._tail_reference = 1.0
+        self._feature_weights = np.array([0.29, 0.14, 0.13, 0.18, 0.12, 0.14])
         self._fit_model()
         self._network = self._load_network()
 
@@ -43,8 +41,10 @@ class FraudEngine:
             ]
         )
 
-        train_data = np.vstack([normal, anomalies])
-        self._model.fit(train_data)
+        self._means = normal.mean(axis=0)
+        self._stds = np.maximum(normal.std(axis=0), 1e-6)
+        anomaly_z = np.abs((anomalies - self._means) / self._stds)
+        self._tail_reference = float(np.quantile(anomaly_z.max(axis=1), 0.65))
 
     def _load_network(self) -> Dict:
         root = Path(__file__).resolve().parents[3]
@@ -55,19 +55,19 @@ class FraudEngine:
     def _anomaly_score(self, payload: FraudEvaluationRequest) -> float:
         sample = np.array(
             [
-                [
-                    payload.invoice_amount,
-                    payload.invoice_count_last_30d,
-                    payload.shipment_distance_km,
-                    payload.shipment_delay_hours,
-                    payload.payment_term_days,
-                    payload.country_risk_index,
-                ]
-            ]
+                payload.invoice_amount,
+                payload.invoice_count_last_30d,
+                payload.shipment_distance_km,
+                payload.shipment_delay_hours,
+                payload.payment_term_days,
+                payload.country_risk_index,
+            ],
+            dtype=float,
         )
-        raw = self._model.decision_function(sample)[0]
-        normalized = float(np.clip((0.35 - raw) / 0.7, 0, 1))
-        return normalized
+        z = np.abs((sample - self._means) / self._stds)
+        weighted = float(np.dot(np.tanh(z / 3.0), self._feature_weights))
+        tail = float(np.clip(z.max() / max(self._tail_reference, 1e-6), 0, 1))
+        return float(np.clip((weighted * 0.8) + (tail * 0.2), 0, 1))
 
     def _rule_score(self, payload: FraudEvaluationRequest) -> float:
         score = 0.0
